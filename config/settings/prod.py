@@ -1,4 +1,10 @@
+import os
 from .base import *
+
+# Railway auto-injects RAILWAY_PUBLIC_DOMAIN — add it to ALLOWED_HOSTS automatically
+_railway_domain = os.environ.get('RAILWAY_PUBLIC_DOMAIN', '')
+if _railway_domain and _railway_domain not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append(_railway_domain)
 
 # Cache (Redis required in prod)
 CACHES = {
@@ -15,7 +21,7 @@ SECURE_HSTS_SECONDS = 31536000
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 SECURE_SSL_REDIRECT = True
-SECURE_REDIRECT_EXEMPT = [r'^/healthz/']   # Railway healthcheck is plain HTTP
+SECURE_REDIRECT_EXEMPT = [r'^healthz/']    # Railway healthcheck is plain HTTP (Django lstrips leading slash before matching)
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  # Trust Railway's proxy
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True

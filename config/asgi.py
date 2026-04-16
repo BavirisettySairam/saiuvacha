@@ -1,10 +1,8 @@
 """
-ASGI config for config project.
+ASGI config for sai-uvacha.
 
-It exposes the ASGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/5.1/howto/deployment/asgi/
+/healthz/ is handled at the ASGI level — before Django's middleware stack —
+so it is immune to ALLOWED_HOSTS validation, SSL redirect, sessions, etc.
 """
 
 import os
@@ -13,4 +11,20 @@ from django.core.asgi import get_asgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.dev')
 
-application = get_asgi_application()
+_django_app = get_asgi_application()
+
+
+async def application(scope, receive, send):
+    """Thin ASGI wrapper: short-circuit /healthz/ before Django middleware."""
+    if scope['type'] == 'http' and scope.get('path') == '/healthz/':
+        await send({
+            'type': 'http.response.start',
+            'status': 200,
+            'headers': [(b'content-type', b'application/json')],
+        })
+        await send({
+            'type': 'http.response.body',
+            'body': b'{"status":"ok"}',
+        })
+        return
+    await _django_app(scope, receive, send)

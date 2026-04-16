@@ -24,9 +24,9 @@ RUN SECRET_KEY=build-time-placeholder \
 EXPOSE 8000
 
 # Gunicorn with Uvicorn worker for ASGI (SSE streaming)
-CMD ["gunicorn", "config.asgi:application", \
-     "--worker-class", "uvicorn.workers.UvicornWorker", \
-     "--workers", "2", \
-     "--bind", "0.0.0.0:$PORT", \
-     "--timeout", "120", \
-     "--keep-alive", "75"]
+CMD gunicorn config.asgi:application \
+    --worker-class uvicorn.workers.UvicornWorker \
+    --workers 2 \
+    --bind 0.0.0.0:$PORT \
+    --timeout 120 \
+    --keep-alive 75

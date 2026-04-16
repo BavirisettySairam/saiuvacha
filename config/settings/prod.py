@@ -41,4 +41,20 @@ CSP_FONT_SRC = ("'self'", "https:")
 CSP_CONNECT_SRC = ("'self'",)    # SSE endpoint is same-origin
 CSP_FRAME_ANCESTORS = ("'none'",)
 
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+# WhiteNoise — serves static files directly from Gunicorn (no separate static server needed)
+# Must be inserted right after SecurityMiddleware
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
+    'axes.middleware.AxesMiddleware',
+    'apps.accounts.middleware.FreeTrialMiddleware',
+]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

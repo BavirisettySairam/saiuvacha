@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block title %}Sai Uvacha — Divine Guidance from Swami's Teachings{% endblock %}
+
+{% block body %}
+<div class="min-h-screen flex flex-col">
+
+  <!-- Nav -->
+  <nav class="px-6 py-4 flex items-center justify-between border-b border-saffron-100">
+    <span class="text-2xl font-semibold text-saffron-500 tracking-wide">🪔 Sai Uvacha</span>
+    <div class="flex gap-3">
+      <a href="/accounts/login/"
+         class="px-4 py-2 text-sm text-saffron-500 border border-saffron-300 rounded-full hover:bg-saffron-50 transition">
+        Sign In
+      </a>
+      <a href="/accounts/signup/"
+         class="px-4 py-2 text-sm bg-saffron-400 text-white rounded-full hover:bg-saffron-500 transition">
+        Sign Up Free
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <main class="flex-1 flex flex-col items-center justify-center px-4 py-16 text-center">
+    <p class="text-saffron-400 text-sm tracking-widest uppercase mb-4">Sri Sathya Sai Baba</p>
+    <h1 class="text-5xl md:text-6xl font-semibold text-gray-800 leading-tight mb-6">
+      Seek Swami's<br/>
+      <span class="text-saffron-400">Divine Guidance</span>
+    </h1>
+    <p class="text-xl text-gray-600 max-w-lg mb-4">
+      Ask any question about spiritual life, human values, devotion, or daily challenges.
+      Receive answers grounded in Bhagawan's own discourses — in Swami's own voice.
+    </p>
+    <p class="text-sm text-gray-400 mb-10 italic">
+      Powered by 155 divine discourses · Responds in your language
+    </p>
+
+    <!-- Quick ask box -->
+    <div class="w-full max-w-xl bg-white rounded-2xl shadow-lg border border-saffron-100 p-2 flex gap-2">
+      <input id="landing-query" type="text"
+             placeholder="Ask Swami a question…"
+             class="flex-1 px-4 py-3 text-base outline-none bg-transparent placeholder-gray-400"
+             onkeydown="if(event.key==='Enter') goToChat()" />
+      <button onclick="goToChat()"
+              class="px-6 py-3 bg-saffron-400 text-white rounded-xl hover:bg-saffron-500 transition text-sm font-semibold">
+        Ask →
+      </button>
+    </div>
+    <p class="mt-3 text-xs text-gray-400">5 free questions · No account needed to start</p>
+
+    <!-- Sample questions -->
+    <div class="mt-8 flex flex-wrap justify-center gap-2 max-w-2xl">
+      {% for q in sample_questions %}
+      <button onclick="document.getElementById('landing-query').value='{{ q }}'"
+              class="px-4 py-2 text-sm bg-cream-dark text-gray-600 rounded-full border border-gray-200 hover:border-saffron-300 hover:text-saffron-500 transition">
+        {{ q }}
+      </button>
+      {% endfor %}
+    </div>
+  </main>
+
+  <!-- How it works -->
+  <section class="bg-white border-t border-gray-100 py-16 px-4">
+    <h2 class="text-center text-2xl font-semibold text-gray-700 mb-12">How It Works</h2>
+    <div class="max-w-3xl mx-auto grid md:grid-cols-3 gap-8 text-center">
+      <div class="flex flex-col items-center gap-3">
+        <div class="w-12 h-12 rounded-full bg-saffron-50 border border-saffron-200 flex items-center justify-center text-xl">
+          🙏
+        </div>
+        <h3 class="font-semibold text-gray-700">Ask from the Heart</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">
+          Type any question about your spiritual journey, daily challenges, or human values.
+          No question is too small.
+        </p>
+      </div>
+      <div class="flex flex-col items-center gap-3">
+        <div class="w-12 h-12 rounded-full bg-saffron-50 border border-saffron-200 flex items-center justify-center text-xl">
+          📖
+        </div>
+        <h3 class="font-semibold text-gray-700">Swami's Own Words</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">
+          The system searches Bhagawan's 155 discourses to find the most relevant teachings,
+          then responds in Swami's own loving voice.
+        </p>
+      </div>
+      <div class="flex flex-col items-center gap-3">
+        <div class="w-12 h-12 rounded-full bg-saffron-50 border border-saffron-200 flex items-center justify-center text-xl">
+          💛
+        </div>
+        <h3 class="font-semibold text-gray-700">Guidance You Can Use</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">
+          Every response ends with a practical instruction for daily life — just as Swami always did
+          in His discourses.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center py-6 text-xs text-gray-400 border-t border-gray-100">
+    Sai Ram 🙏 · Built with love for devotees worldwide ·
+    <a href="/accounts/signup/" class="hover:text-saffron-400 underline">Create a free account</a>
+  </footer>
+</div>
+
+<script>
+function goToChat() {
+  const q = document.getElementById('landing-query').value.trim();
+  if (q) {
+    window.location.href = '/chat/?q=' + encodeURIComponent(q);
+  } else {
+    window.location.href = '/chat/';
+  }
+}
+</script>
+{% endblock %}

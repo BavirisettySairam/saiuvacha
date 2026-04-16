@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{% block head_title %}{% endblock %} — Sai Uvacha{% endblock %}
+
+{% block body %}
+<div class="min-h-screen flex flex-col items-center justify-center px-4 py-12">
+  <a href="/" class="text-3xl font-semibold text-saffron-500 mb-8 block">🪔 Sai Uvacha</a>
+
+  <div class="w-full max-w-sm bg-white rounded-2xl shadow-md border border-gray-100 p-8">
+    {% if messages %}
+    <div class="mb-4 space-y-2">
+      {% for message in messages %}
+      <div class="text-sm px-3 py-2 rounded-lg
+                  {% if message.tags == 'error' %}bg-red-50 text-red-600{% else %}bg-green-50 text-green-700{% endif %}">
+        {{ message }}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+  </div>
+
+  <p class="mt-6 text-xs text-gray-400">Sai Ram 🙏</p>
+</div>
+{% endblock %}

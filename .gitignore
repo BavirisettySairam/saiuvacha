@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+venv/
+.venv/
+*.pyc
+
+# Environment
+.env
+.env.local
+.env.production
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Django
+*.sqlite3
+staticfiles/
+media/
+.cache/
+
+# Docker
+docker-compose.override.yml
+
+# Discourse raw files (too large for git)
+discourses/raw/
+discourses/converted/
+
+# Node (for Tailwind build)
+node_modules/
+
+# Pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Claude Code internal files
+.claude/
+
+# Planning docs
+plan of action/

@@ -16,6 +16,17 @@ _django_app = get_asgi_application()
 
 async def application(scope, receive, send):
     """Thin ASGI wrapper: short-circuit /healthz/ before Django middleware."""
+    if scope['type'] == 'lifespan':
+        # Django doesn't support the ASGI lifespan protocol — handle it here
+        # so it never reaches Django and raises ValueError.
+        while True:
+            message = await receive()
+            if message['type'] == 'lifespan.startup':
+                await send({'type': 'lifespan.startup.complete'})
+            elif message['type'] == 'lifespan.shutdown':
+                await send({'type': 'lifespan.shutdown.complete'})
+                return
+
     if scope['type'] == 'http' and scope.get('path') == '/healthz/':
         await send({
             'type': 'http.response.start',
@@ -27,4 +38,5 @@ async def application(scope, receive, send):
             'body': b'{"status":"ok"}',
         })
         return
+
     await _django_app(scope, receive, send)

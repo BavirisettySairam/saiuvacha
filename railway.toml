@@ -3,7 +3,7 @@ builder = "dockerfile"
 dockerfilePath = "Dockerfile"
 
 [deploy]
-preDeployCommand = "python manage.py migrate --noinput && python manage.py createsuperuser --noinput || true && python manage.py shell -c \"from django.contrib.sites.models import Site; import os; Site.objects.update_or_create(id=1, defaults={'domain': os.environ.get('ALLOWED_HOSTS','localhost'), 'name': 'Sai Uvacha'})\" "
+preDeployCommand = "python manage.py migrate --noinput && python manage.py bootstrap"
 healthcheckPath = "/healthz/"
 healthcheckTimeout = 30
 restartPolicyType = "on_failure"

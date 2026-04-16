@@ -11,7 +11,8 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy source
+# Copy source — bump the comment below to force a full rebuild when Railway caches stale layers
+# cache-bust: v2
 COPY . .
 
 # Collect static files — SECRET_KEY must be set for Django to start,

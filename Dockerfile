@@ -23,4 +23,4 @@ RUN SECRET_KEY=build-time-placeholder \
 
 EXPOSE 8000
 
-CMD ["gunicorn", "config.asgi:application", "--worker-class", "uvicorn.workers.UvicornWorker", "--workers", "2", "--bind", "0.0.0.0:8000", "--timeout", "120", "--keep-alive", "75"]
+CMD ["sh", "-c", "exec gunicorn config.asgi:application --worker-class uvicorn.workers.UvicornWorker --workers 2 --bind 0.0.0.0:${PORT:-8000} --timeout 120 --keep-alive 75"]

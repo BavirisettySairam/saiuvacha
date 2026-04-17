@@ -1,11 +1,12 @@
+import asyncio
 import json
 import logging
+import threading
 
 from django.contrib.auth.decorators import login_required
 from django.http import StreamingHttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_GET, require_POST
+from django.views.decorators.http import require_POST
 from django_ratelimit.decorators import ratelimit
 
 from apps.rag import cache as response_cache
@@ -132,16 +133,35 @@ def ask(request):
             content=query,
         )
 
-    def event_stream():
+    async def event_stream():
         full_response = []
         message_id = None
-        try:
-            for token in stream_ask(query, language=language):
-                full_response.append(token)
-                # SSE format: data: <token>\n\n
-                yield f'data: {json.dumps({"token": token})}\n\n'
+        queue = asyncio.Queue()
+        loop = asyncio.get_event_loop()
 
-            # Save assistant message
+        def produce():
+            try:
+                for token in stream_ask(query, language=language):
+                    loop.call_soon_threadsafe(queue.put_nowait, ('token', token))
+            except Exception as exc:
+                loop.call_soon_threadsafe(queue.put_nowait, ('error', exc))
+            finally:
+                loop.call_soon_threadsafe(queue.put_nowait, ('done', None))
+
+        thread = threading.Thread(target=produce, daemon=True)
+        thread.start()
+
+        try:
+            while True:
+                kind, value = await queue.get()
+                if kind == 'token':
+                    full_response.append(value)
+                    yield f'data: {json.dumps({"token": value})}\n\n'
+                elif kind == 'error':
+                    raise value
+                elif kind == 'done':
+                    break
+
             if conversation and full_response:
                 response_text = ''.join(full_response)
                 msg = Message.objects.create(
@@ -150,14 +170,11 @@ def ask(request):
                     content=response_text,
                 )
                 message_id = msg.pk
-                # Auto-title conversation from first exchange
                 if not conversation.title:
                     conversation.title = query[:80]
                     conversation.save(update_fields=['title'])
-                # Cache the response for repeat queries
                 response_cache.store(query, response_text)
 
-            # Send done event with conversation + message ids
             done_payload: dict = {'done': True}
             if conversation:
                 done_payload['conversation_id'] = conversation.pk
@@ -168,6 +185,8 @@ def ask(request):
         except Exception as exc:
             logger.exception('stream_ask error: %s', exc)
             yield f'data: {json.dumps({"error": "Something went wrong. Please try again."})}\n\n'
+        finally:
+            thread.join(timeout=10)
 
     response = StreamingHttpResponse(
         event_stream(),

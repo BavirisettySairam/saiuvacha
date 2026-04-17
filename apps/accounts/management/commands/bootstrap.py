@@ -34,9 +34,14 @@ class Command(BaseCommand):
             self.stdout.write("Superuser env vars not set — skipping.")
             return
 
-        if User.objects.filter(username=username).exists():
-            self.stdout.write(f"Superuser '{username}' already exists — skipping.")
-            return
-
-        User.objects.create_superuser(username=username, email=email, password=password)
-        self.stdout.write(f"Superuser '{username}' created.")
+        user = User.objects.filter(email=email).first()
+        if user:
+            # Always sync password + staff flags in case they changed
+            user.set_password(password)
+            user.is_staff = True
+            user.is_superuser = True
+            user.save(update_fields=['password', 'is_staff', 'is_superuser'])
+            self.stdout.write(f"Superuser '{email}' updated.")
+        else:
+            User.objects.create_superuser(username=username, email=email, password=password)
+            self.stdout.write(f"Superuser '{email}' created.")

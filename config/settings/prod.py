@@ -66,3 +66,5 @@ MIDDLEWARE = [
 ]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+SILENCED_SYSTEM_CHECKS = ['django_ratelimit.W001']

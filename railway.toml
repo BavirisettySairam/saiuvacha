@@ -4,7 +4,7 @@ dockerfilePath = "Dockerfile"
 
 [deploy]
 startCommand = "sh -c \"gunicorn config.asgi:application --worker-class uvicorn.workers.UvicornWorker --workers 2 --bind 0.0.0.0:$PORT --timeout 120 --keep-alive 75\""
-preDeployCommand = "python manage.py migrate --noinput && python ensure_admin.py && python manage.py axes_reset"
+preDeployCommand = "echo STEP1_MIGRATE && python manage.py migrate --noinput && echo STEP2_ADMIN && python ensure_admin.py && echo STEP3_AXES && python manage.py axes_reset && echo STEP4_DONE"
 healthcheckPath = "/healthz/"
 healthcheckTimeout = 30
 restartPolicyType = "on_failure"

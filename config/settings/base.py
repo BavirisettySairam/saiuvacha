@@ -141,6 +141,7 @@ QDRANT_URL = env('QDRANT_URL', default='')
 QDRANT_API_KEY = env('QDRANT_API_KEY', default='')
 
 # django-axes
+AXES_ENABLED = env.bool('AXES_ENABLED', default=True)
 AXES_FAILURE_LIMIT = 5
 AXES_COOLOFF_TIME = 1  # hours
 

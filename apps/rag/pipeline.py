@@ -25,7 +25,7 @@ from apps.rag import composer, llm, retriever
 
 logger = logging.getLogger(__name__)
 
-TOP_K = 5   # number of chunks to retrieve
+TOP_K = 8   # number of chunks to retrieve — more context = richer responses
 
 
 # ---------------------------------------------------------------------------

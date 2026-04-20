@@ -17,7 +17,8 @@ from django.conf import settings
 # Prompt injection patterns
 INJECTION_PATTERNS = [
     re.compile(p, re.IGNORECASE) for p in [
-        r'\bignore\s+(all\s+)?(previous|prior|above|your)\s+instructions?\b',
+        r'\bignore\b.{0,30}\binstructions?\b',
+        r'\bignore\s+(all\s+)?(previous|prior|above|your)\b',
         r'\bforget\s+(everything|all|your|the)\b',
         r'\bact\s+as\s+(if\s+you\s+are|a|an)\b',
         r'\bpretend\s+(you\s+are|to\s+be)\b',
@@ -57,14 +58,28 @@ FINANCIAL_KEYWORDS = {
 }
 
 MEDICAL_KEYWORDS = {
-    'diagnose', 'diagnosis', 'prescription', 'medicine', 'drug', 'tablet',
-    'dosage', 'symptom', 'treatment', 'surgery', 'disease', 'cancer',
-    'diabetes treatment', 'blood pressure medication',
+    'diagnose', 'diagnosis', 'prescription', 'dosage', 'surgery',
+    'cancer treatment', 'diabetes treatment', 'blood pressure medication',
+    'what medicine', 'which tablet', 'which drug',
 }
 
+# Phrase-level harmful patterns (avoid blocking spiritual uses of these words:
+# "kill the ego", "disease of attachment", "overcome hate", "non-violence", etc.)
+HARMFUL_PATTERNS = [
+    re.compile(p, re.IGNORECASE) for p in [
+        r'\bkill\s+(myself|yourself|him|her|them|someone|people|you)\b',
+        r'\b(want to|going to|planning to)\s+die\b',
+        r'\bcommit\s+suicide\b',
+        r'\bsuicide\s+(plan|method|how)\b',
+        r'\bhow\s+to\s+make\s+a\s+bomb\b',
+        r'\bhow\s+to\s+(buy|get|make)\s+a\s+weapon\b',
+        r'\bterrorist\s+attack\b',
+        r'\bshoot\s+(up|people|someone)\b',
+    ]
+]
+
 HARMFUL_KEYWORDS = {
-    'kill', 'murder', 'suicide', 'self-harm', 'bomb', 'weapon', 'violence',
-    'hate', 'terrorist', 'attack', 'abuse', 'assault',
+    'murder', 'bomb', 'terrorist',
 }
 
 # Disrespect / abuse toward Swami
@@ -123,7 +138,12 @@ def check(query: str) -> FilterResult:
         if pattern.search(query):
             return False, 'disrespectful', 'disrespectful'
 
-    # Harmful content
+    # Harmful phrase-level patterns (self-harm, violence against others)
+    for pattern in HARMFUL_PATTERNS:
+        if pattern.search(query):
+            return False, 'harmful_content', 'harmful'
+
+    # Harmful keyword set (remaining hard blocks)
     if words & HARMFUL_KEYWORDS:
         matched = words & HARMFUL_KEYWORDS
         return False, f'harmful_content: {matched}', 'harmful'

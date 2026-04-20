@@ -1,7 +1,7 @@
 # Sai Uvacha — Progress Tracker
 
 > Based on the 5-week development plan. Updated as work is completed.
-> **Status: Week 1–3 largely done. Week 4 partially done. Week 5 partially done. Discourses not yet ingested.**
+> **Status: Week 1–3 complete. Week 4 partially done. Week 5 partially done. 155 discourses / 1,074 chunks live in Qdrant.**
 
 ---
 
@@ -15,17 +15,17 @@
 - [x] `railway.toml` — builder, startCommand, preDeployCommand, healthcheck
 - [x] Health check endpoint (`/healthz/`) handled at ASGI level
 - [x] `bootstrap` management command — idempotent superuser + Site setup on deploy
-- [ ] Batch convert 200 `.docx` discourse files to `.md`
+- [x] Batch convert 200 `.docx` discourse files to `.md` (155 converted, in `discourses/<year>/`)
 - [x] Discourse metadata parser (title, date, event, place, year from filename)
 - [x] Chunking script with semantic section detection
 - [x] Non-citeable discourse tracking (`config/non_citeable_discourses.json`)
 - [x] Sanskrit/Telugu glossary for search expansion (`config/glossary.json`)
-- [ ] Embed all discourse chunks with OpenAI `text-embedding-3-small`
-- [ ] Upload embeddings to Qdrant Cloud
+- [x] Embed all discourse chunks with OpenAI `text-embedding-3-small`
+- [x] Upload embeddings to Qdrant Cloud (1,074 chunks, `sai_discourses` collection)
 - [ ] Test retrieval in terminal — ask 20 spiritual questions, verify chunk quality
 
 **Milestone: Ask a question in terminal, get back the right discourse chunks**
-Status: ⏳ Blocked on discourse ingestion
+Status: ✅ 155 discourses ingested. Retrieval verification pending.
 
 ---
 
@@ -63,11 +63,16 @@ Status: ⏳ Code complete. Needs discourse data + end-to-end testing.
 - [x] Free trial middleware — 5 session-tracked queries, 403 with login URL after limit
 - [x] Login / signup pages (allauth + Tailwind)
 - [x] Rate limiting on SSE endpoint (django-ratelimit, 20 req/min per IP)
-- [ ] Language selector UI (dropdown in header, saved to user profile)
+- [x] Language selector saved to user profile (`/accounts/profile/` — 5 languages)
+- [x] Custom allauth templates (login, signup, password reset, email confirm, logout)
+- [x] ChatGPT-style UI (dark sidebar, markdown rendering via marked.js + DOMPurify)
+- [x] Typing indicator (3-dot bounce) + streaming cursor animation
+- [x] SSE `SynchronousOnlyOperation` fix (sync_to_async wrapping ORM in async generator)
+- [ ] Language selector dropdown in chat header (profile page exists, header shortcut pending)
 - [ ] django-ninja API endpoints
 
 **Milestone: Working chat in browser with login, streaming, language select**
-Status: ✅ Core chat works. Language selector UI + ninja endpoints pending.
+Status: ✅ Complete. Header language shortcut + ninja endpoints pending.
 
 ---
 
@@ -124,16 +129,14 @@ Status: ⏳ App deployed and healthy. Domain, CI/CD, and beta testing pending.
 
 ## Discourse Processing Pipeline
 
-- [ ] Download / organise all 200+ `.docx` discourse files into `discourses/raw/`
-- [ ] Run `python scripts/convert_docs.py --dir discourses/raw/` → `.md` files
-- [ ] Verify filename format: `"Title by Bhagavan..." - DD Mon YYYY - Event - Place.md`
-- [ ] Review converted files for OCR artifacts, encoding issues, page-number noise
-- [ ] Run `python scripts/validate_dataset.py` — verify chunk sizes, metadata completeness
-- [ ] Review and populate `config/non_citeable_discourses.json`
-- [ ] Run `python scripts/ingest.py --setup-collection` (first time only)
-- [ ] Run `python scripts/ingest.py --all` — chunk → embed → upload to Qdrant
+- [x] Organise 155 `.md` files into `discourses/<year>/` folders
+- [x] Verify filename format: `"Title by Bhagavan..." - DD Mon YYYY - Event - Place.md`
+- [x] Review and populate `config/non_citeable_discourses.json`
+- [x] Run `python scripts/ingest.py --setup-collection` (collection created in Qdrant)
+- [x] Run `python scripts/ingest.py --all --resume` — 1,074 chunks uploaded to `sai_discourses`
 - [ ] Spot-check 20 spiritual questions against retrieved chunks in terminal
 - [ ] Verify non-citeable discourses suppress date/event/place correctly
+- [ ] Add remaining discourses when available (`--resume` flag handles idempotent re-runs)
 
 ---
 
@@ -170,7 +173,7 @@ Status: ⏳ App deployed and healthy. Domain, CI/CD, and beta testing pending.
 | Privacy Policy | `/privacy` | ❌ Not started |
 | Terms of Service | `/terms` | ❌ Not started |
 | Contact / Feedback | `/contact` | ❌ Not started |
-| Profile / Settings | `/settings` | ❌ Not started |
+| Profile / Settings | `/accounts/profile/` | ✅ Done (language pref, password change, sign out) |
 | Discourse Manager | `/admin/discourses/` | ❌ Post-launch |
 
 ---

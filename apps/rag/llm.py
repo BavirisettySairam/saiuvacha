@@ -15,6 +15,7 @@ from django.conf import settings
 OPENAI_MODEL = 'gpt-4o-mini'
 CLAUDE_MODEL = 'claude-sonnet-4-6'
 MAX_TOKENS = 1024
+TEMPERATURE = 0.8  # warm, varied — not robotic, not erratic
 
 
 def _provider() -> str:
@@ -73,6 +74,7 @@ def _claude_stream(system: str, user_message: str):
     with client.messages.stream(
         model=CLAUDE_MODEL,
         max_tokens=MAX_TOKENS,
+        temperature=TEMPERATURE,
         system=system,
         messages=[{'role': 'user', 'content': user_message}],
     ) as stream:
@@ -87,6 +89,7 @@ def _claude_complete(system: str, user_message: str) -> str:
     message = client.messages.create(
         model=CLAUDE_MODEL,
         max_tokens=MAX_TOKENS,
+        temperature=TEMPERATURE,
         system=system,
         messages=[{'role': 'user', 'content': user_message}],
     )

@@ -1,0 +1,17 @@
+{% extends "account/base.html" %}
+{% block head_title %}Verify Your Email{% endblock %}
+
+{% block content %}
+<div class="text-center">
+  <div class="text-6xl mb-4">📬</div>
+  <h2 class="text-xl font-semibold text-gray-800 mb-2">Check your inbox</h2>
+  <p class="text-sm text-gray-500 leading-relaxed mb-5">
+    We've sent a verification link to your email address.
+    Click it to activate your account and begin your journey with Swami.
+  </p>
+  <p class="text-xs text-gray-400 leading-relaxed">
+    Didn't receive it? Check your spam folder, or
+    <a href="{% url 'account_email' %}" class="text-saffron-500 hover:underline">resend the email</a>.
+  </p>
+</div>
+{% endblock %}

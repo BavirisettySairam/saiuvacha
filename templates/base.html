@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{% block title %}Sai Uvacha{% endblock %}</title>
 
-  <!-- Tailwind CSS (CDN for dev — replace with build in prod) -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -13,25 +12,28 @@
         extend: {
           colors: {
             saffron: { 50:'#fff8f0', 100:'#ffe8c8', 200:'#ffc878', 300:'#ffa030', 400:'#f07800', 500:'#c85a00', DEFAULT:'#f07800' },
-            cream:  { DEFAULT:'#fdf6e3', dark:'#f5e6c8' },
+            cream:   { DEFAULT:'#fdf6e3', dark:'#f5e6c8' },
           },
           fontFamily: {
             serif: ['"Crimson Text"', 'Georgia', 'serif'],
+            sans:  ['Inter', 'system-ui', 'sans-serif'],
           },
         }
       }
     }
   </script>
-  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 
-  <!-- HTMX -->
-  <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <script src="https://unpkg.com/htmx.org@1.9.12" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
 
   {% block extra_head %}{% endblock %}
 </head>
-<body class="h-full bg-cream font-serif text-gray-800 {% block body_class %}{% endblock %}">
-
+<body class="h-full font-sans {% block body_class %}{% endblock %}">
   {% block body %}{% endblock %}
-
 </body>
 </html>

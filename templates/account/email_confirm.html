@@ -1,0 +1,36 @@
+{% extends "account/base.html" %}
+{% block head_title %}Confirm Email{% endblock %}
+
+{% block content %}
+{% if can_confirm %}
+<div class="text-center mb-6">
+  <div class="text-5xl mb-3">📧</div>
+  <h2 class="text-xl font-semibold text-gray-800 mb-2">Confirm your email</h2>
+  <p class="text-sm text-gray-500 leading-relaxed">
+    Please confirm that
+    <strong class="text-gray-700">{{ confirmation.email_address.email }}</strong>
+    is your email address.
+  </p>
+</div>
+<form method="POST" action="">
+  {% csrf_token %}
+  <button type="submit"
+          class="w-full py-2.5 bg-saffron-400 hover:bg-saffron-500 text-white text-sm font-medium rounded-xl transition">
+    Confirm email address
+  </button>
+</form>
+{% else %}
+<div class="text-center">
+  <div class="text-5xl mb-3">⚠️</div>
+  <h2 class="text-xl font-semibold text-gray-800 mb-2">Invalid confirmation link</h2>
+  <p class="text-sm text-gray-500 mb-5 leading-relaxed">
+    This email confirmation link has expired or is invalid.
+    Please request a new one.
+  </p>
+  <a href="{% url 'account_email' %}"
+     class="inline-block w-full py-2.5 text-center bg-saffron-400 text-white text-sm font-medium rounded-xl hover:bg-saffron-500 transition">
+    Request new confirmation
+  </a>
+</div>
+{% endif %}
+{% endblock %}

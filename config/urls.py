@@ -11,6 +11,7 @@ urlpatterns = [
     path('health/', health),
     path('healthz/', health),   # Railway healthcheck alias
     path('admin/', admin.site.urls),
+    path('accounts/', include('apps.accounts.urls')),
     path('accounts/', include('allauth.urls')),
     path('dashboard/', include('apps.dashboard.urls')),
     path('', include('apps.chat.urls')),

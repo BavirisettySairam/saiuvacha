@@ -3,6 +3,7 @@ import json
 import logging
 import threading
 
+from asgiref.sync import sync_to_async
 from django.contrib.auth.decorators import login_required
 from django.http import StreamingHttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -164,7 +165,7 @@ def ask(request):
 
             if conversation and full_response:
                 response_text = ''.join(full_response)
-                msg = Message.objects.create(
+                msg = await sync_to_async(Message.objects.create)(
                     conversation=conversation,
                     role='assistant',
                     content=response_text,
@@ -172,8 +173,8 @@ def ask(request):
                 message_id = msg.pk
                 if not conversation.title:
                     conversation.title = query[:80]
-                    conversation.save(update_fields=['title'])
-                response_cache.store(query, response_text)
+                    await sync_to_async(conversation.save)(update_fields=['title'])
+                await sync_to_async(response_cache.store)(query, response_text)
 
             done_payload: dict = {'done': True}
             if conversation:

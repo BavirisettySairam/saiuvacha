@@ -1,0 +1,31 @@
+None can estimate or comprehend the power of Divinity. Yet, there are enough people who criticize God! Divinity remains unaffected by praise or censure. Praise cannot enhance it nor criticisms diminish it. Divinity does not aspire for praise or publicity. Thousands of students have passed out of this University, having obtained an education totally free of cost. But we have never advertised this fact. The joy of the students is all that gives me enough pleasure.
+
+In the Ramayana, Bharatha resided at Nandigrama, lost in the contemplation of Rama. Laksmana was away serving Rama and Sita. Satrugna governed the kingdom during those 14 years. Though Bharatha was Rama\'s representative, it was Satrugna who carried out the day-to-day administration of the kingdom. He strove from dawn to dusk to solve problems. He guarded its boundaries and kept the kingdom safe and secure. He was so totally dedicated to Bharatha\'s service that he would never report to Bharatha for the fear of disturbing his meditation.
+
+Sumitra once explained to Kausalya and Kaikeyi, \"If Rama were to be the King, my son Lakshmana would dedicate himself to Rama. If Bharatha were to become the King, my son Satrugna would dedicate himself to his service. I gave birth to the twins not for them to achieve name, fame, or kingdoms but for them to engage themselves in service\". An ample measure of the fame Rama and Bharatha achieved was due to the brothers Lakshmana and Satrugna. Their unity and rock-like affection for each other is an ideal worth emulating.
+
+This is why Rama lamented bitterly when Lakshmana swooned in the battle. He wept, \"I may find a wife of Sita\'s virtues; I may find a mother of Kausalya\'s caliber and nobility; but never will I be able to find a brother like you!\" It was Hanuman that came to the rescue and picked the entire mountain that contained the life saving Sanjivani plant. On his return journey, he had to pass over Ayodhya. By that time, Bharatha was already aware of the troubles the demons were heaping on Rama. Sighting the huge form overhead, he shot an arrow at Hanuman, thinking him to be a demon. Hanuman descended with the mountain, introduced himself, and explained the situation.
+
+The ecstatic Bharatha sent for the queen mothers. Mother Sumitra\'s noble quality is again illustrated here. She said, \"Lakshmana is forever lost in Rama\'s seva (service). I do not worry for him. I only worry that there is now a disturbance in Rama\'s seva! If something does happen to Lakshmana, my son Satrugna shall go to serve Rama.\"
+
+Urmila also expressed such noble sentiments. When told that her husband\'s life was in danger, she said, \"My husband has only the thought of Rama in him. Rama will certainly take up all his problems. My husband shall always be peaceful and safe\". The four sisters were certainly not far behind when it came to noble traits!
+
+Meanwhile, under Satrugna\'s able administration, people spoke the truth and followed righteousness. He never rested, and it was his constant apprehension that problems of the kingdom would reach Bharatha and disturb him. Such was the love that the brothers had for each other.
+
+Meanwhile, news reached Satrugna that in the forest, the demoness Surpanaka had raked up trouble for Rama and Lakshmana. She succeeded in goading the demons Kara and Dushana to wage a battle against the brothers. These demons were close aides of Ravana. Satrugna sought his mother\'s advice; Sumitra counseled that Rama was divinity incarnated and hence there was nothing to worry about. Satrugna always had problems when confronting Bharatha with such news. He would never dare to talk back to his elder brother or even give him any advice. He set a perfect ideal. One should never talk back to elders or even attempt to advise them. Extreme care must be exercised before replying to their questions. One must always speak the truth. Satrugna exemplified these ideals. Sruthakeerthi, Satrugna\'s wife, was known not to talk much. True to her name \--sruti+keerthi\-- she always paid attention to hearing only noble and virtuous words. Therefore, she always did only good and spread good ideals.
+
+The brothers were always united in their love for each other. Rama loved Lakshmana dearly and would always love to have Lakshmana at his side. The brothers and their wives exemplified the Vedic ideal:
+
+> Let us all move together, let us all grow together.
+>
+> Let us all stay united and share our knowledge\".
+
+When Rama and Lakshmana left for the forests, they took only a crowbar and a wicker basket. They did not take any weapon from the kingdom of Ayodhya. Sage Vishwamithra turned his entire armoury of divine weapons and missiles to the brothers, and they used them. Using them, Rama alone could destroy the entire army of 40000 demons of Khara and Dushana, who tried to trouble them.
+
+When Rama, Lakshmana, and Sita visited sage Aghastya\'s ashram, the great sage directed them to Panchavati. The brothers decided to set up their hermitage and stay for the rest of their time of exile at this place. It was also at this place that the episode of Surpanaka occurred. When she came to Rama to ask him to marry her, Rama and Lakshmana decided to humour her and sent her shuttling to and fro between them. When the infuriated demoness tried to attack Sita, Lakshmana cut off Surpanaka\'s ears and nose.
+
+Surpanaka went and complained to her brother Ravana. When Ravana wanted to know why she waited long enough for Lakshmana to cut off both her ears and nose, she confessed that she went into a trance when Lakshmana touched her, smitten by his handsomeness!
+
+Rama had advised Bharatha, \"Our father ruled wisely. You are now the King. Don\'t talk much and don\'t waste time in arguments. Act more. Respect one and all\". The brothers followed the advice, and Ayodhya prospered.
+
+Today, you have been told about what the Super Specialties Hospital has achieved. I do not generally like these incidents to be made public. My advice to the boys has always been that you must publicize less. Instead, give joy to the people with your sincere work, and that will make me happy. But I would like to tell you that we never turn away deserving cases. I can spend anything and do anything if it will give joy to people.

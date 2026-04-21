@@ -5,6 +5,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq-dev gcc \
     && rm -rf /var/lib/apt/lists/*
 
+# Force unbuffered Python output so preDeployCommand logs appear in Railway
+ENV PYTHONUNBUFFERED=1
+
 WORKDIR /app
 
 # Install Python deps first (layer cache)

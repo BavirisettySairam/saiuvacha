@@ -67,8 +67,34 @@ def store(query: str, response: str) -> None:
 
 
 def invalidate(query: str) -> None:
-    """Remove a specific query from cache (useful for admin overrides)."""
+    """Remove a specific query from cache."""
     try:
         _get_client().delete(_key(query))
     except Exception:
         pass
+
+
+def flush_all() -> int:
+    """
+    Delete all cached responses (all keys matching CACHE_PREFIX*).
+    Returns the number of keys deleted.
+    Call this after major pipeline changes (new chunking, new system prompt, etc.)
+    """
+    try:
+        client = _get_client()
+        pattern = f'{CACHE_PREFIX}*'
+        keys = []
+        cursor = 0
+        while True:
+            cursor, batch = client.scan(cursor, match=pattern, count=200)
+            keys.extend(batch)
+            if cursor == 0:
+                break
+        if keys:
+            deleted = client.delete(*keys)
+            logger.info('Cache flush: deleted %d keys', deleted)
+            return deleted
+        return 0
+    except Exception as exc:
+        logger.warning('Cache flush failed (%s)', exc)
+        return 0
